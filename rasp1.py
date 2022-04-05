@@ -11,7 +11,7 @@ import string
 #os.remove(path)
 
 
-bot = telebot.TeleBot('5176835858:AAE2uw2g1zEaG-0fE1lQpLtHN0QrsQEE2EQ')
+bot = telebot.TeleBot('Здесь должен быть токен бота')
 #фильтруемые слова
 words = ['мгу']
 x = False
