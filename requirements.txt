@@ -1,0 +1,7 @@
+pyTelegramBotAPI
+matplotlib
+Pillow
+face-recognition
+face-recognition-models
+dlib
+matplotlib
