@@ -1,1 +1,1 @@
-web: python rasp1.py
+worker: python rasp1.py
