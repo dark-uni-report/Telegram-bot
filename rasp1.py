@@ -49,10 +49,10 @@ def start(m):
         gg = False
         user_n = m.from_user.first_name
         user_s = m.from_user.last_name
-        with open("users.txt", 'r') as filex:
+        with open("users.txt", 'r', encoding='utf-8') as filex:
             if user not in filex.read():
                 gg = True  
-        with open("users.txt", 'a') as filex:
+        with open("users.txt", 'a', encoding='utf-8') as filex:
             if gg:
                 filex.write(f'\n{user_n} {user_s} - @{user} - id{userid}')
         #markup = telebot.types.InlineKeyboardMarkup(row_width=2)
