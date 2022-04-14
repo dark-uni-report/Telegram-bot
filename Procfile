@@ -1,1 +1,1 @@
-web: python main.py
+web: python rasp1.py
