@@ -13,7 +13,7 @@ from PIL import ImageFilter
 #path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'test.txt')
 #os.remove(path)
 
-bot = telebot.TeleBot('5176835858:AAE2uw2g1zEaG-0fE1lQpLtHN0QrsQEE2EQ')
+bot = telebot.TeleBot('5321967311:AAE3k2eaCvp7feGTSJPGcyDBlYARFrDGGWw')
 words = ['мгу', 'вшэ']
 x = False
 src_f = ''
@@ -118,7 +118,7 @@ def a1(m):
                     sf.append(l)
         #print(sf)
         if len(sf) != 0:
-            del sf[-1]
+            # del sf[-1]
             with open("blocked.txt", 'w') as fy:
                 for i in range(len(sf)):
                     fy.write(f'{sf[i]}')
@@ -223,13 +223,15 @@ def one(m, res=False):
                     for face_location in face_loc:
                         top, right, bottom, left = face_location
                         draw_shape = PIL.ImageDraw.Draw(pil_image)
-                        draw_shape.rectangle([left, top, right, bottom], fill=color, outline=outline)
+                        draw_shape.rectangle([left, 0.94 * top, right, bottom], fill=color, outline=outline)
                         pil_image.save(f'dd{src_f}')
                     photo = open(src1, 'rb')
                     bot.send_photo(m.chat.id, photo)   
             except:
                 bot.send_message(m.chat.id, 'Скорость интернета не позволяет обработать это фото')
                 bot.send_message(m.chat.id, 'Используй другое изображение.\n')
+                src_f = ''  
+                src1 = ''
         else:
             bot.send_message(m.chat.id, '️⚠️Сначала необхожимо загрузить фото!')
     else:
@@ -297,6 +299,8 @@ def one(m, res=False):
                 except:
                     bot.send_message(m.chat.id, 'Скорость интернета не позволяет обработать это фото')
                     bot.send_message(m.chat.id, 'Используй другое изображение.\n')
+                    src_f = ''  
+                    src1 = ''
         else:
             bot.send_message(m.chat.id, '️⚠️Сначала необхожимо загрузить фото!')
     else:
@@ -363,7 +367,10 @@ def two(m, res=False):
                     #path = os.path.join(os.path.abspath(os.path.dirname(src1)), f'dd{src_f}')
                     #os.remove(path)                    
             except:
-                bot.send_message(m.chat.id, 'Ошибка отправления!\n')     
+                bot.send_message(m.chat.id, 'Скорость интернета не позволяет обработать это фото')
+                bot.send_message(m.chat.id, 'Используй другое изображение.\n')
+                src_f = ''  
+                src1 = ''     
         else:
             bot.send_message(m.chat.id, '️⚠️Сначала необхожимо загрузить фото!')
     else:
@@ -403,7 +410,10 @@ def one(m, res=False):
                     src_f = ''
                     src1 = ''
                 else:
-                    time = int(round((len(sp) * 7.8), 0))
+                    time = int(round((len(sp) * 5), 0))
+                    face_loc = fr.face_locations(image)
+                    if len(face_loc) != 1:
+                        bot.send_message(m.chat.id, 'Обращаю Ваше внимание, что будет проверен только один человек с фотографии.')
                     x1 = ['1']
                     x2 = ['2', '3', '4']
                     x3 = ['0', '5', '6', '7', '8', '9']
@@ -427,7 +437,7 @@ def one(m, res=False):
                         n2 = n1[0]
                         #a, b = n2.split('-')
                         if results == [True]:
-                            bot.send_message(m.chat.id, f'На фотографии {n2}.\n')
+                            bot.send_message(m.chat.id, f'На фотографии {n2}\n')
                             #print(f'In this photo {n2}.')
                             v = 1   
                             break   
@@ -440,6 +450,8 @@ def one(m, res=False):
             except:
                 bot.send_message(m.chat.id, 'Скорость интернета не позволяет обработать это фото')
                 bot.send_message(m.chat.id, 'Используй другое изображение.\n')
+                src_f = ''  
+                src1 = ''
         else:
             bot.send_message(m.chat.id, '⚠️Сначала необхожимо загрузить фото!')
     else:
@@ -493,10 +505,11 @@ def audio(m):
 
 @bot.message_handler(commands=["clear"])
 def yes(m, res=False):
-    global src_f
+    global src_f, src1
     global yy
     yy = 0    
-    src_f = ''
+    src_f = ''  
+    src1 = '' 
     try:
         for i in range(300):
             bot.delete_message(m.chat.id, m.message_id - i) 
@@ -647,23 +660,23 @@ def save_text(message):
         if str(userid) in filex.read():
             nn = True
     if nn is False:
+        # filepath = "C:/Users/user/Documents/rasp1/"
+        # src = filepath
         try:
-            filepath = "C:/Users/user/Documents/rasp1/"
-            src = filepath
             chat_id = message.chat.id
             file_info = bot.get_file(message.document.file_id)
             downloaded_file = bot.download_file(file_info.file_path)
-            src1 = src + 'dd' + message.document.file_name
+            src1 = 'dd' + message.document.file_name
             src_f = message.document.file_name
             filen = 'dd' + src_f 
-            #print(src_f)
+            # print(src_f)
             a1, a2 = src_f.split('.')
             #pil_image = PIL.Image.fromarray(image)
             #pil_image.save(f'{src_f}')
             if a2.lower() in ss:
                 with open(src_f, 'wb') as new__file:
                     new__file.write(downloaded_file)                
-                with open(src1, 'wb') as new_file:
+                with open(filen, 'wb') as new_file:
                     new_file.write(downloaded_file)
                 image = fr.load_image_file(filen)
                 face_landmarks_list = fr.face_landmarks(image)
@@ -671,7 +684,7 @@ def save_text(message):
                 #print(len(face_loc))
                 try:
                     if len(face_loc) == 0:
-                        bot.send_message(message.chat.id, 'Я не вижу лиц на фотографии :( Возможно, они частично скрыты.')
+                        bot.send_message(message.chat.id, 'Я не вижу лиц на фото :( Возможно, они частично скрыты.')
                         bot.send_message(message.chat.id, 'Используй другое изображение.')
                         src_f = ''  
                         src1 = '' 
